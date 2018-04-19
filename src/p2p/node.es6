@@ -91,7 +91,6 @@ export default class Node {
         if (err) {
           this._logger.error('Error sending message to peer', peer, err)
         }
-
         pull(pull.values([block.serializeBinary()]), conn)
       })
     })
@@ -123,6 +122,27 @@ export default class Node {
         this._logger.warn(`Error while dialing discovered peer ${peer.id.toB58String()}`)
       }
     })
+  }
+
+  _handleMessageNewBlock (protocol: Object, conn: Object) {
+    pull(
+      conn,
+      pull.collect((err, wireData) => {
+        if (err) {
+          console.log('ERROR _handleMessageNewBlock()', err, wireData)
+          return
+        }
+
+        try {
+          const bytes = wireData[0]
+          const raw = new Uint8Array(bytes)
+          const block = BcBlock.deserializeBinary(raw)
+          this._logger.info('Received new block from peer', block.toObject())
+        } catch (e) {
+          this._logger.error(`Error decoding block from peer, reason: ${e.message}`)
+        }
+      })
+    )
   }
 
   _handleMessageNewBlock (protocol: Object, conn: Object) {
@@ -187,6 +207,8 @@ export default class Node {
   }
 
   _registerMessageHandlers (node: Bundle) {
+    node.handle(`${PROTOCOL_PREFIX}/getobject`, (protocol, conn) => this._handleMessageNewBlock(protocol, conn))
+    node.handle(`${PROTOCOL_PREFIX}/setobject`, (protocol, conn) => this._handleMessageNewBlock(protocol, conn))
     node.handle(`${PROTOCOL_PREFIX}/newblock`, (protocol, conn) => this._handleMessageNewBlock(protocol, conn))
     node.handle(`${PROTOCOL_PREFIX}/status`, (protocol, conn) => this._handleMessageStatus(node, protocol, conn))
   }
