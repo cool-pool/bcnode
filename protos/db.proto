@@ -10,3 +10,16 @@ message DbValue {
     int32 version = 3;
     bool is_native = 4;
 }
+
+message GetObject { 
+    string collection = 1; 
+    int32 type = 2;
+    string key = 3; 
+} 
+
+message PutObject { 
+    string collection = 1; 
+    int32 type = 2;
+    string key = 3; 
+    string data = 4;
+}

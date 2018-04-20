@@ -19,6 +19,7 @@ const RoverManager = require('../rover/manager').default
 const rovers = require('../rover/manager').rovers
 const Server = require('../server/index').default
 const PersistenceRocksDb = require('../persistence').RocksDb
+const { DatabaseLayer } = require('../dbal/index')
 const { RpcServer } = require('../rpc/index')
 const { prepareWork, prepareNewBlock, mine } = require('../miner/miner')
 const { getGenesisBlock } = require('../miner/genesis')
@@ -33,6 +34,7 @@ export default class Engine {
   _monitor: Monitor; // eslint-disable-line no-undef
   _node: Node; // eslint-disable-line no-undef
   _persistence: PersistenceRocksDb; // eslint-disable-line no-undef
+  _databaseLayer:  DatabaseLayer; // eslint-disable-line no-undef
   _rovers: RoverManager; // eslint-disable-line no-undef
   _rpc: RpcServer; // eslint-disable-line no-undef
   _server: Server; // eslint-disable-line no-undef
@@ -50,6 +52,7 @@ export default class Engine {
     this._monitor = new Monitor(this, {})
     this._node = new Node(this)
     this._persistence = new PersistenceRocksDb(DATA_DIR)
+    this._databaseLayer = new DatabaseLayer(this._persistence)
     this._rovers = new RoverManager()
     this._emitter = new EventEmitter()
     this._rpc = new RpcServer(this)

@@ -208,7 +208,7 @@ export default class Node {
 
   _registerMessageHandlers (node: Bundle) {
     node.handle(`${PROTOCOL_PREFIX}/getobject`, (protocol, conn) => this._handleMessageNewBlock(protocol, conn))
-    node.handle(`${PROTOCOL_PREFIX}/setobject`, (protocol, conn) => this._handleMessageNewBlock(protocol, conn))
+    node.handle(`${PROTOCOL_PREFIX}/putobject`, (protocol, conn) => this._handleMessageNewBlock(protocol, conn))
     node.handle(`${PROTOCOL_PREFIX}/newblock`, (protocol, conn) => this._handleMessageNewBlock(protocol, conn))
     node.handle(`${PROTOCOL_PREFIX}/status`, (protocol, conn) => this._handleMessageStatus(node, protocol, conn))
   }
