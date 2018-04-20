@@ -145,27 +145,6 @@ export default class Node {
     )
   }
 
-  _handleMessageNewBlock (protocol: Object, conn: Object) {
-    pull(
-      conn,
-      pull.collect((err, wireData) => {
-        if (err) {
-          console.log('ERROR _handleMessageNewBlock()', err, wireData)
-          return
-        }
-
-        try {
-          const bytes = wireData[0]
-          const raw = new Uint8Array(bytes)
-          const block = BcBlock.deserializeBinary(raw)
-          this._logger.info('Received new block from peer', block.toObject())
-        } catch (e) {
-          this._logger.error(`Error decoding block from peer, reason: ${e.message}`)
-        }
-      })
-    )
-  }
-
   _handleMessageStatus (node: Bundle, protocol: Object, conn: Object) {
     pull(
       conn,

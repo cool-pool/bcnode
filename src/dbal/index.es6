@@ -6,4 +6,4 @@
  *
  * @flow
  */
-export { default as DatabaseLayer } from "./layer"
+export { default as DatabaseLayer } from './layer'

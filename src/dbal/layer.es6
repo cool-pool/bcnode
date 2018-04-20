@@ -9,13 +9,14 @@
 
 const logging = require('../logger')
 const { GetObject, PutObject } = require('../protos/db_pb')
+const { inspect } = require('util')
 
 /**
  * Blockchains and their types
  * @type {{bc: *, btc: *, lsk: *}}
  */
 export const collections = {
-  bc:  [],
+  bc: [],
   btc: [],
   eth: [],
   lsk: [],
@@ -50,7 +51,7 @@ export default class DatabaseLayer {
   }
 
   /**
-   * Get Ephermeral 
+   * Get Ephermeral
    * @param getObject
    */
   getEphermal (query: Object = {}): Promise<*> {
@@ -132,7 +133,7 @@ export default class DatabaseLayer {
     return new Promise((resolve, reject) => {
       const stringPut =
         p.getCollection() + '.' + p.getType() + '.' + p.getKey()
-      console.log("stringPut" + stringPut)
+      console.log(`DatabaseLayer.putObject() - ${inspect(stringPut)}`)
       this._persistence
         .put(stringPut, p.getData())
         .then(result => {

@@ -52,7 +52,7 @@ function getDiff (currentBlockTs, parentBlockTs, parentDifficulty, minimumDiffic
 function main () {
   const previousChildTs = [1, 2, 3, 4, 5]
   const currentChildTs = [2, 3, 4, 5, 6]
-  const currentChildTs = [0, 0, 1, 0, 0]
+  // const currentChildTs = [0, 0, 1, 0, 0]
   const childsCount = 5
 
   const work = 'efg'

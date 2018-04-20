@@ -34,7 +34,7 @@ export default class Engine {
   _monitor: Monitor; // eslint-disable-line no-undef
   _node: Node; // eslint-disable-line no-undef
   _persistence: PersistenceRocksDb; // eslint-disable-line no-undef
-  _databaseLayer:  DatabaseLayer; // eslint-disable-line no-undef
+  _databaseLayer: DatabaseLayer; // eslint-disable-line no-undef
   _rovers: RoverManager; // eslint-disable-line no-undef
   _rpc: RpcServer; // eslint-disable-line no-undef
   _server: Server; // eslint-disable-line no-undef
