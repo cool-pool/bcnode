@@ -14,7 +14,7 @@ describe('Layer', () => {
   let db = null
 
   beforeEach((done) => {
-    const dbPath = `_testData/${Date.now()}`
+    const dbPath = `_testData`
     db = new PersistenceRocksDb(dbPath)
 
     db
